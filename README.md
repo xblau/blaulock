@@ -1,5 +1,5 @@
 # ScreenLock for ComputerCraft
-![Screenshot](https://blaudev.es/res/screenshots/screenlock/screenshot_1.png)
+![Screenshot](https://blaudev.es/res/screenshots/screenlock_1.png)
 ## Installation
 #### In CraftOS 1.x
 If you only use the default Operating System (CraftOS), simply run the installer with this command: `pastebin run UzqMFTHw`
