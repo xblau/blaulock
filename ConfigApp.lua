@@ -13,7 +13,7 @@ local function PrintUsage()
 	print("slock-config del <name>")
 	print("slock-config status <enable | disable>")
 	print("slock-config list")
-	print("slock-config uninstall")
+	--print("slock-config uninstall") [NYI]
 end
 
 local function GenHash(a)
@@ -99,46 +99,7 @@ elseif tArgs[1] == "list" then
 		if k ~= "Config" then print("[#" .. _ini .. "] " .. k) _ini = _ini + 1 end
 	end
 elseif tArgs[1] == "uninstall" then
-	if tArgs[2] ~= "-s" then
-		if term.isColor() then term.setTextColor(colors.red) end
-		print("[CAUTION] Uninstall SLock?")
-		term.setTextColor(colors.white)
-		write("(S/N) > ") local _Sel = read()
-		if _Sel ~= "S" then error("Aborted") end
-	end
-	print("Unloading APIs...") sleep(0.1)
-	local tAPI = fs.list(_SLockDir .. "/APIs/")
-	for i = 1, #tAPI do
-		os.unloadAPI(_SLockDir .. "/APIs/" .. tAPI[i]) sleep(0.1)
-	end
-	print("Listing files...") sleep(0.1)
-	local _tFiles = listAll(_SLockDir)
-	for i = 1, #_tFiles do
-		print("Deleting file: " .. _tFiles[i]) sleep(0.1)
-		fs.delete(_tFiles[i])
-	end
-	print("Checking startup file...") sleep(0.1)
-	if fs.exists("/startup") then
-		local f = fs.open("/startup", "r")
-		local _Content = f.readAll() f.close()
-		local _Command = _SLockDir .. "SLock.lua"
-		_Command = "shell.run('" .. _Command .. "')"
-		if _Content == _Command then
-			print("Startup file detected as link.") sleep(0.1)
-			fs.delete("/startup")
-			print("Startup file deleted. Rebooting now...") sleep(2)
-			os.reboot()
-		else
-			print("Detected custom startup file. Repairing...")
-			local _NewContent = string.gsub(_Content, _Command, "")
-			local f = fs.open("/startup", "w") f.write(_NewContent) f.close()
-			print("Startup file repaired. Rebooting now...") sleep(2)
-			os.reboot()
-		end
-	else
-		print("Startup file not found. Rebooting now...") sleep(2)
-		os.reboot()
-	end
+	--
 elseif tArgs[1] == "status" and tArgs[2] ~= nil then
 	if tArgs[2] == "enable" then
 		if ExistingUsers["Config"]["EnableProtection"] then
