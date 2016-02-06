@@ -23,5 +23,3 @@ else
 		shell.run("/.autorun")
 	end
 end
-
-if fs.exists("/.startup") then shell.run("/startup") end
