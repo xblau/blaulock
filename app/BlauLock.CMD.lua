@@ -31,9 +31,14 @@ if #tArgs == 0 then
 end
 
 if tArgs[1] == 'passwd' then
-    local PIM = 5
+    local PIM = 15
     if tArgs[2] == '--pim' and tArgs[3] ~= nil then
         PIM = tonumber( tArgs[3] )
+    end
+    
+    if PIM < 5 then
+        print( 'ERROR: PIM can\'t be lower than 5! (Current: ' .. tostring( PIM ) .. ')' )
+        return nil
     end
     
     write( 'New password: ' ) 
