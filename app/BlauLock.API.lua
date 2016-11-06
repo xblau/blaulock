@@ -40,7 +40,7 @@ function BlauLock.GenerateHash( algo, password, pim, salt )
     
     local temphash = GenHash( salt .. password )
     for i = 1, pim do
-        temphash = GenHash( salt .. temphash )
+        temphash = GenHash( salt .. temphash ) sleep(0)
     end
     
     return hash .. temphash
@@ -56,7 +56,7 @@ function BlauLock.VerifyHash( password, hash )
         
         local temphash = GenHash( hash[3] .. password )
         for i = 1, tonumber( hash[2] ) do
-            temphash = GenHash( hash[3] .. temphash )
+            temphash = GenHash( hash[3] .. temphash ) sleep(0)
         end
         
         return ( temphash == hash[4] )
