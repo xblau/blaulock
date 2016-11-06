@@ -80,5 +80,7 @@ os.pullEvent = oldPullEvent
 
 shell.setAlias( 'blaulock-cmd', '/.BlauLock/BlauLock.CMD.lua' )
 
-settings.set( 'shell.allow_disk_startup', false )
-settings.save( '.settings' )
+if settings and type( settings ) == 'table' then
+    settings.set( 'shell.allow_disk_startup', false )
+    settings.save( '.settings' )
+end
