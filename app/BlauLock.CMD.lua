@@ -162,4 +162,7 @@ if tArgs[1] == 'remove' then
     file.close()
 
     print( 'Done!' )
+    return true
 end
+
+printUsage()
