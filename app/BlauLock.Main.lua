@@ -16,6 +16,11 @@ os.pullEvent       = os.pullEventRaw
 local oldShutdown = os.shutdown
 local oldReboot   = os.reboot
 
+dofile( '/.BlauLock/functions.lua' )
+
+local Config = ploadtable( '/.BlauLock/config.dat' )
+local BlauLock = dofile( '/.BlauLock/BlauLock.API.lua' )
+
 local function poweroff( action )
     if fs.exists( '/.BlauLock/BlauLock.Main.lua' ) then
         if fs.exists( '/startup' ) then
@@ -33,11 +38,6 @@ local function poweroff( action )
         oldReboot()
     end
 end
-
-dofile( '/.BlauLock/functions.lua' )
-
-local Config = ploadtable( '/.BlauLock/config.dat' )
-local BlauLock = dofile( '/.BlauLock/BlauLock.API.lua' )
 
 if( Config['Enabled'] ) then
     local Locked = true
