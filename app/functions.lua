@@ -10,7 +10,7 @@
 
 ]]
 
-local function pprint( text, sX, sY, textColor, backColor, func )
+function pprint( text, sX, sY, textColor, backColor, func )
     local func = func or write
     
 	if sX == 'centrated' then
