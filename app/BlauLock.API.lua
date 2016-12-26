@@ -17,11 +17,13 @@ function BlauLock.inject( target, exe )
 	local content = f.readAll()
 	f.close()
 	
-	local launcher = "shell.run('" .. exe .. "')\n"
+	local launcher = "shell.run('" .. exe .. "')"
 	
-	local f = fs.open( target, 'w' )
-	f.write( launcher .. content )
-	f.close()	
+    if launcher ~= string.sub( content, 1, #launcher ) then    
+        local f = fs.open( target, 'w' )
+        f.write( launcher .. "\n" .. content )
+        f.close()
+    end
 end
 
 function BlauLock.GenerateHash( algo, password, pim, salt )
