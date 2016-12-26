@@ -10,7 +10,9 @@
 
 ]]
 
-function pprint( text, sX, sY, textColor, backColor )
+local function pprint( text, sX, sY, textColor, backColor, func )
+    local func = func or write
+    
 	if sX == 'centrated' then
 		local w, h = term.getSize()
 		sX = math.ceil( math.ceil( ( w / 2 ) - ( #text / 2 ) ), 0 ) + 1
@@ -19,7 +21,7 @@ function pprint( text, sX, sY, textColor, backColor )
 	term.setCursorPos( sX, sY )
 	term.setTextColor( textColor )
 	term.setBackgroundColor( backColor )
-	write( text )
+	func( text )
 end
 
 function pread( sX, sY, eX, textColor, backColor, char )
