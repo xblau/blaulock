@@ -142,12 +142,7 @@ if tArgs[1] == 'remove' then
         end
     end
 
-    term.setTextColor( colors.white )
-    term.setBackgroundColor( colors.black )
-
-    term.clear() term.setCursorPos( 1, 1 )
-
-    write( 'Uninstalling BlauLock, please wait... ' )
+    if not tArgs[2] == '--silent' then write( 'Uninstalling BlauLock, please wait... ' ) end
 
     fs.delete( '/.BlauLock' )
 
@@ -160,8 +155,10 @@ if tArgs[1] == 'remove' then
     local file = fs.open( '/startup', 'w' )
     file.write( newstup )
     file.close()
-
-    print( 'Done!' )
+    
+    shell.clearAlias( 'blaulock-cmd' )
+    
+    if not tArgs[2] == '--silent' then print( 'Done!' ) end
     return true
 end
 
