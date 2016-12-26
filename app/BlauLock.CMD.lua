@@ -22,7 +22,7 @@ local function printUsage()
     print( 'blaulock-cmd passwd [--pim <n>]' )
     print( 'blaulock-cmd inject [--file <path>]' )
     print( 'blaulock-cmd status [--enable/--disable]' )
-    print( 'blaulock-cmd remove [--reinstall]' )
+    print( 'blaulock-cmd remove [--silent]' )
 end
 
 if #tArgs == 0 then
@@ -125,7 +125,41 @@ if tArgs[1] == 'inject' then
 end
 
 if tArgs[1] == 'remove' then
-    if tArgs[2] == '--reinstall' then
+    if tArgs[2] ~= '--silent' then
+        print( 'WARNING: This option will remove BlauLock!' .. "\n" )
+        print( 'If you want to disable BlauLock without removing it, type "disable". If you want to uninstall, type "remove".' .. "\n" )
+        write( 'Action: ' )
+        local choice = read()
+        
+        if choice == 'disable' then
+            shell.run( 'blaulock-cmd status --disable' )
+            return true
+        elseif choice == 'remove' then
+            --
+        else
+            print( 'Unknown action "' .. choice .. '", aborting.' )
+            return nil
+        end
+    end
     
-    end    
+    term.setTextColor( colors.white )
+    term.setBackgroundColor( colors.black )
+    
+    term.clear() term.setCursorPos( 1, 1 )
+    
+    write( 'Uninstalling BlauLock, please wait... ' )
+    
+    fs.delete( '/.BlauLock' )
+    
+    local file = fs.open( '/startup', 'r' )
+    local oldstup = file.readAll()
+    file.close()
+    
+    local newstup = oldstup:gsub( "shell.run%('/%.BlauLock/BlauLock.Main.lua'%)", "" )
+    
+    local file = fs.open( '/startup', 'w' )
+    file.write( newstup )
+    file.close()
+    
+    print( 'Done!' )
 end
