@@ -2,10 +2,10 @@
 
     This file is part of BlauLock, a ComputerCraft program
     that adds password protection on startup.
-    
+
     Author: Daniel 'Blaudev' Mosquera <daniel@blaudev.es>
     Repository: https://github.com/blaudev/BlauLock
-    
+
     THIS FILE IS DISTRIBUTED UNDER THE TERMS OF THE MIT LICENSE
 
 ]]
@@ -13,16 +13,16 @@
 local Current = {}
 
 local function download(url, file)
-	local _Reply = http.get(url)
-	if _Reply then
-		local data = _Reply.readAll()
-		f = fs.open(file,"w")
-		f.write(data)
-		f.close()
-		return true 
-	else
-		return false 
-	end	
+    local _Reply = http.get(url)
+    if _Reply then
+        local data = _Reply.readAll()
+        f = fs.open(file,"w")
+        f.write(data)
+        f.close()
+        return true
+    else
+        return false
+    end
 end
 
 if fs.exists( '/.BlauLock' ) then
@@ -30,7 +30,7 @@ if fs.exists( '/.BlauLock' ) then
         print( 'ERROR: BlauLock is already installed!' )
         return nil
     end
-    
+
     fs.delete( '/.BlauLock' )
 end
 
@@ -71,13 +71,13 @@ while not PasswordDefined do
     local confpass = read( '*' )
 
     print('')
-    
+
     if newpass == confpass then
         Current['Pass'] = newpass
         PasswordDefined = true
     else
         print( 'ERROR: passwords do not match!' )
-    end    
+    end
 end
 
 local NewConfig = { Enabled = false, }
