@@ -11,7 +11,28 @@
 ]]
 
 local oldPullEvent = os.pullEvent
-os.pullEvent = os.pullEventRaw
+os.pullEvent       = os.pullEventRaw
+
+local oldShutdown = os.shutdown
+local oldReboot   = os.reboot
+
+local function poweroff( action )
+    if fs.exists( '/.BlauLock/BlauLock.Main.lua' ) then
+        if fs.exists( '/startup' ) then
+            BlauLock.inject( '/startup', '/.BlauLock/BlauLock.Main.lua' )
+        else
+            local file = fs.open( '/startup', 'w' )
+            file.write( "shell.run('/.BlauLock/BlauLock.Main.lua')" )
+            file.close()
+        end
+    end
+    
+    if action == 'shutdown' then
+        oldShutdown()
+    elseif action == 'reboot' then
+        oldReboot()
+    end
+end
 
 dofile( '/.BlauLock/functions.lua' )
 
@@ -75,6 +96,9 @@ if( Config['Enabled'] ) then
         end
     end
 end
+
+os.shutdown = function() poweroff( 'shutdown' ) end
+os.reboot   = function() poweroff( 'reboot' ) end
 
 os.pullEvent = oldPullEvent
 

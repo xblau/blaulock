@@ -67,7 +67,7 @@ while not PasswordDefined do
     write( 'New password: ' )
     local newpass = read( '*' )
 
-    write( 'Confirm it:' )
+    write( 'Confirm it: ' )
     local confpass = read( '*' )
 
     print('')
