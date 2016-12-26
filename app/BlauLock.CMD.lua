@@ -142,7 +142,7 @@ if tArgs[1] == 'remove' then
         end
     end
 
-    if not tArgs[2] == '--silent' then write( 'Uninstalling BlauLock, please wait... ' ) end
+    if tArgs[2] ~= '--silent' then write( 'Uninstalling BlauLock, please wait... ' ) end
 
     fs.delete( '/.BlauLock' )
 
@@ -158,7 +158,7 @@ if tArgs[1] == 'remove' then
     
     shell.clearAlias( 'blaulock-cmd' )
     
-    if not tArgs[2] == '--silent' then print( 'Done!' ) end
+    if tArgs[2] ~= '--silent' then print( 'Done!' ) end
     return true
 end
 
