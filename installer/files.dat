@@ -1,4 +1,5 @@
 {
+    Version = 'v1.0',
     { Path = '/.BlauLock/functions.lua', URL = 'https://raw.githubusercontent.com/blaudev/BlauLock/6f5c5346c09890bfead2cb3452a93cb85e6c828b/app/functions.lua', },
     { Path = '/.BlauLock/BlauLock.API.lua', URL = 'https://raw.githubusercontent.com/blaudev/BlauLock/6f5c5346c09890bfead2cb3452a93cb85e6c828b/app/BlauLock.API.lua', },
     { Path = '/.BlauLock/BlauLock.CMD.lua', URL = 'https://raw.githubusercontent.com/blaudev/BlauLock/6f5c5346c09890bfead2cb3452a93cb85e6c828b/app/BlauLock.CMD.lua', },

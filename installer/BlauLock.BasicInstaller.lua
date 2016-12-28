@@ -49,6 +49,12 @@ else
 end
 
 print( 'Starting download...' )
+
+if Current['Files']['Version'] ~= nil then
+    Current['Version'] = Current['Files']['Version']
+    Current['Files']['Version'] = nil
+end
+
 for i = 1, #Current['Files'] do
     download( Current['Files'][i]['URL'], Current['Files'][i]['Path'])
 end
