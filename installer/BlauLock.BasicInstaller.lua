@@ -95,7 +95,7 @@ while not PasswordDefined do
     end
 end
 
-local NewConfig = { Enabled = false, }
+local NewConfig = { Enabled = true, }
 
 print( 'Generating hash, please wait...' )
 
@@ -113,4 +113,5 @@ else
     file.close()
 end
 
-print( 'Done! Run "blaulock-cmd status --enable" to activate.' )
+print( 'Done! BlauLock is now installed and enabled.' )
+print( 'You can manage it with the "blaulock-cmd" command.' )
