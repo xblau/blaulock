@@ -155,9 +155,9 @@ if tArgs[1] == 'remove' then
     local file = fs.open( '/startup', 'w' )
     file.write( newstup )
     file.close()
-    
+
     shell.clearAlias( 'blaulock-cmd' )
-    
+
     if tArgs[2] ~= '--silent' then print( 'Done!' ) end
     return true
 end

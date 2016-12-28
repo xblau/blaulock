@@ -12,17 +12,15 @@
 
 local Current = {}
 
-local function download(url, file)
-    local _Reply = http.get(url)
-    if _Reply then
-        local data = _Reply.readAll()
-        f = fs.open(file,"w")
-        f.write(data)
+local function download( link, path )
+    local handler = http.get( link )
+    if handler then
+        local data = handler.readAll()
+        f = fs.open( path, "w" )
+        f.write( data )
         f.close()
         return true
-    else
-        return false
-    end
+    else return false end
 end
 
 if fs.exists( '/.BlauLock' ) then

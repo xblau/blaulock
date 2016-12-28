@@ -41,7 +41,7 @@ end
 
 if( Config['Enabled'] ) then
     local Locked = true
-    
+
     local theme = {
         window  = colors.gray,
         error   = colors.white,
@@ -50,7 +50,7 @@ if( Config['Enabled'] ) then
         text    = colors.white,
         backg   = colors.black
     }
-    
+
     if( term.isColor() ) then
         if Config['Theme'] ~= nil and type( Config['Theme'] ) == 'table' then
             theme = Config['Theme']
