@@ -26,37 +26,48 @@ end
 if fs.exists( '/.BlauLock' ) then
     if fs.isDir( '/.BlauLock' ) then
         print( 'ERROR: BlauLock is already installed!' )
+        print( 'Run "blaulock-cmd remove" to uninstall first.' )
         return nil
     end
 
     fs.delete( '/.BlauLock' )
 end
 
-if not http then
-    print( 'ERROR: HTTP API disabled!' )
-    return nil
-end
+if not http then error( 'HTTP API not found!' ) end
 
-print( 'Fetching list of required files...' )
+write( 'Fetching list of files...     ' )
+local handler = http.get( 'https://raw.githubusercontent.com/blaudev/BlauLock/master/installer/files.dat' )
 
-local Reply = http.get( 'https://raw.githubusercontent.com/blaudev/BlauLock/master/installer/files.dat' )
-if not Reply then
-    print( 'ERROR: Failed to retrieve list of files!' )
-    return nil
+if not handler then
+    print( 'Failed.' )
+    error( 'files.dat download failed!' )
 else
-    local sFiles = Reply.readAll()
+    print( 'Success.' )
+    local sFiles = handler.readAll()
     Current['Files'] = textutils.unserialize( sFiles )
 end
-
-print( 'Starting download...' )
 
 if Current['Files']['Version'] ~= nil then
     Current['Version'] = Current['Files']['Version']
     Current['Files']['Version'] = nil
 end
 
+local bOK = true
+write( 'Downloading files...          ' )
+
 for i = 1, #Current['Files'] do
-    download( Current['Files'][i]['URL'], Current['Files'][i]['Path'])
+    local try = download( Current['Files'][i]['URL'], Current['Files'][i]['Path'])
+    if not try then
+        bOK = false
+    end
+end
+
+if not bOK then
+    print( 'Failed.' )
+    error( 'At least one download failed!' )
+    fs.delete( '/.BlauLock' )
+else
+    print( 'Success.' )
 end
 
 print( 'Loading BlauLock\'s API...' )
