@@ -10,33 +10,78 @@
 
 ]]
 
-local function download(url, file)
-	local _Reply = http.get(url)
+local tArgs = {...}
+
+local sInstallerLink = nil
+local sInstallerPath = '/.BlauLockInstaller'
+
+local function download( link, path )
+	local _Reply = http.get( link )
 	if _Reply then
 		local data = _Reply.readAll()
-		f = fs.open(file,"w")
-		f.write(data)
+		f = fs.open( path, "w" )
+		f.write( data )
 		f.close()
 		return true 
-	else
-		return false 
-	end	
+	else return false end	
 end
 
-if not http then
-    error( 'HTTP API not found!' )
+if not tArgs[1] then
+    tArgs[1] = 'install'
 end
 
-local InstallerLink, InstallerPath = nil, '/.BlauLockInstaller'
-
-InstallerLink = 'https://raw.githubusercontent.com/blaudev/BlauLock/master/installer/BlauLock.BasicInstaller.lua'
-
-print( 'Downloading installer...' )
-local result = download(InstallerLink, InstallerPath)
-
-if not result then
-    error('Something went wrong! :(')
+if tArgs[1] == 'install' then
+    if not http then error( 'HTTP API not found!' ) end
+    
+    if term.isColor() then
+        --sInstaller = 'https://raw.githubusercontent.com/blaudev/BlauLock/master/installer/BlauLock.AdvancedInstaller.lua'
+        sInstallerLink = 'https://raw.githubusercontent.com/blaudev/BlauLock/master/installer/BlauLock.BasicInstaller.lua'
+    else
+        sInstallerLink = 'https://raw.githubusercontent.com/blaudev/BlauLock/master/installer/BlauLock.BasicInstaller.lua'
+    end
+    
+    if fs.exists( sInstallerPath ) then
+        fs.delete( sInstallerPath )
+    end
+    
+    write( 'Downloading installer...      ' )
+    local ok = download( sInstallerLink, sInstallerPath )
+    
+    if not ok then 
+        print( 'Failed.' )
+        return false
+    end
+    
+    print( 'Success.' )
+    
+    shell.run( sInstallerPath )
+    fs.delete( sInstallerPath )
 end
 
-shell.run(InstallerPath)
-fs.delete(InstallerPath)
+if tArgs[1] == 'remove' then    
+    if fs.exists( '/.BlauLock/BlauLock.CMD.lua' ) then
+        -- Use the built-in uninstaller
+        shell.run( '/.BlauLock/BlauLock.CMD.lua remove --silent' )
+    else
+        -- If the cmd tool doesn't exist, remove the files manually
+        
+        if fs.exists( '/.BlauLock' ) then
+            -- Remove the app directory
+            fs.delete( '/.BlauLock' )
+        end
+        
+        if fs.exists( '/startup' ) then
+            -- Restore the startup file
+            
+            local file = fs.open( '/startup', 'r' )
+            local oldstup = file.readAll()
+            file.close()
+            
+            local newstup = oldstup:gsub( "shell.run%('/%.BlauLock/BlauLock.Main.lua'%)", "" )
+            
+            local file = fs.open( '/startup', 'w' )
+            file.write( newstup )
+            file.close()
+        end
+    end    
+end
