@@ -20,7 +20,6 @@ local BlauLock = dofile( '/.BlauLock/BlauLock.API.lua' )
 local function printUsage()
     print( 'Usages:' )
     print( 'blaulock-cmd passwd [--pim <n>]' )
-    print( 'blaulock-cmd inject [--file <path>]' )
     print( 'blaulock-cmd status [--enable/--disable]' )
     print( 'blaulock-cmd remove [--silent]' )
 end
