@@ -1,0 +1,11 @@
+name = blaulock
+    type = raw
+        url = https://raw.githubusercontent.com/blaudev/BlauLock/master/installer/BlauLock.Pastebin.lua
+        filename = blaulock-setup
+    setup = blaulock-setup install
+    cleanup = blaulock-setup remove
+    category = security
+    dependencies = none
+    version = 1.1
+    size = 2543
+end
