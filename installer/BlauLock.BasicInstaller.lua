@@ -27,7 +27,7 @@ if fs.exists( '/.BlauLock' ) then
     if fs.isDir( '/.BlauLock' ) then
         print( 'ERROR: BlauLock is already installed!' )
         print( 'Run "blaulock-cmd remove" to uninstall first.' )
-        return nil
+        return false
     end
 
     fs.delete( '/.BlauLock' )
@@ -50,6 +50,12 @@ end
 if Current['Files']['Version'] ~= nil then
     Current['Version'] = Current['Files']['Version']
     Current['Files']['Version'] = nil
+    
+    local handle = fs.open( '/.BlauLock/version', 'w' )
+    if handle then
+        handle.write( Current['Version'] )
+        handle.close()
+    end
 end
 
 local bOK = true
