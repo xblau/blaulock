@@ -26,7 +26,9 @@ end
 
 function pread( sX, sY, eX, textColor, backColor, char )
     local input = ''
-
+    
+    term.setCursorBlink( true )
+    
     local function subinput()
         local subinput = ''
 
@@ -68,6 +70,7 @@ function pread( sX, sY, eX, textColor, backColor, char )
             end
         elseif event == 'key' then
             if key == 28 then
+                term.setCursorBlink( false )
                 return input
             elseif key == 14 then
                 input = string.sub( input, 1, #input - 1 )
