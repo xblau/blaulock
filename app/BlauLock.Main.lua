@@ -32,6 +32,11 @@ local function poweroff( action )
         end
     end
 
+    if settings and type( settings.set ) == 'function' then
+        settings.set( 'shell.allow_disk_startup', false )
+        settings.save( '.settings' )
+    end
+
     if action == 'shutdown' then
         oldShutdown()
     elseif action == 'reboot' then
@@ -113,10 +118,5 @@ os.shutdown = function() poweroff( 'shutdown' ) end
 os.reboot   = function() poweroff( 'reboot' ) end
 
 shell.setAlias( 'blaulock-cmd', '/.BlauLock/BlauLock.CMD.lua' )
-
-if settings and type( settings ) == 'table' then
-    settings.set( 'shell.allow_disk_startup', false )
-    settings.save( '.settings' )
-end
 
 os.pullEvent = oldPullEvent
