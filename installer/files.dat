@@ -1,7 +1,7 @@
 {
-    Version = 'v1.0',
-    { Path = '/.BlauLock/functions.lua', URL = 'https://raw.githubusercontent.com/blaudev/BlauLock/6f5c5346c09890bfead2cb3452a93cb85e6c828b/app/functions.lua', },
-    { Path = '/.BlauLock/BlauLock.API.lua', URL = 'https://raw.githubusercontent.com/blaudev/BlauLock/6f5c5346c09890bfead2cb3452a93cb85e6c828b/app/BlauLock.API.lua', },
-    { Path = '/.BlauLock/BlauLock.CMD.lua', URL = 'https://raw.githubusercontent.com/blaudev/BlauLock/6f5c5346c09890bfead2cb3452a93cb85e6c828b/app/BlauLock.CMD.lua', },
-    { Path = '/.BlauLock/BlauLock.Main.lua', URL = 'https://raw.githubusercontent.com/blaudev/BlauLock/6f5c5346c09890bfead2cb3452a93cb85e6c828b/app/BlauLock.Main.lua', },
+    Version = 'v1.1',
+    { Path = '/.BlauLock/functions.lua', URL = 'https://raw.githubusercontent.com/blaudev/BlauLock/9b0d5d03add16541b1d2f6f527f1ec0eb9e7c069/app/functions.lua', },
+    { Path = '/.BlauLock/BlauLock.API.lua', URL = 'https://raw.githubusercontent.com/blaudev/BlauLock/9b0d5d03add16541b1d2f6f527f1ec0eb9e7c069/app/BlauLock.API.lua', },
+    { Path = '/.BlauLock/BlauLock.CMD.lua', URL = 'https://raw.githubusercontent.com/blaudev/BlauLock/9b0d5d03add16541b1d2f6f527f1ec0eb9e7c069/app/BlauLock.CMD.lua', },
+    { Path = '/.BlauLock/BlauLock.Main.lua', URL = 'https://raw.githubusercontent.com/blaudev/BlauLock/9b0d5d03add16541b1d2f6f527f1ec0eb9e7c069/app/BlauLock.Main.lua', },
 }
