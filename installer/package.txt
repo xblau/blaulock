@@ -6,6 +6,6 @@ name = blaulock
     cleanup = blaulock-setup remove
     category = security
     dependencies = none
-    version = 1.1
+    version = 1.1.1
     size = 2543
 end
