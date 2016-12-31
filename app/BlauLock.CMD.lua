@@ -96,33 +96,6 @@ if tArgs[1] == 'status' then
     return true
 end
 
-if tArgs[1] == 'inject' then
-    local path = '/startup'
-
-    if tArgs[2] == '--file' and tArgs[3] ~= nil then
-        path = tArgs[3]
-    end
-
-    if not fs.exists( path ) then
-        print( 'ERROR: target file not found!' )
-        return nil
-    end
-
-    if fs.exists( path ) and fs.isDir( path ) then
-        print( 'ERROR: target must be a file, not a directory!' )
-        return nil
-    end
-
-    if fs.exists( path ) and fs.isReadOnly( path ) then
-        print( 'ERROR: target is read-only!' )
-        return nil
-    end
-
-    BlauLock.inject( path, '/.BlauLock/BlauLock.Main.lua' )
-    print( 'Successfully injected: ' .. path )
-    return true
-end
-
 if tArgs[1] == 'remove' then
     if tArgs[2] ~= '--silent' then
         print( 'WARNING: This option will remove BlauLock!' .. "\n" )
