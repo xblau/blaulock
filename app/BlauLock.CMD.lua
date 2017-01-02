@@ -21,6 +21,7 @@ local function printUsage()
     print( 'Usages:' )
     print( 'blaulock-cmd passwd [--pim <n>]' )
     print( 'blaulock-cmd status [--enable/--disable]' )
+    print( 'blaulock-cmd eraser [--enable/--disable]' )
     print( 'blaulock-cmd remove [--silent]' )
 end
 
@@ -131,6 +132,71 @@ if tArgs[1] == 'remove' then
     shell.clearAlias( 'blaulock-cmd' )
 
     if tArgs[2] ~= '--silent' then print( 'Done!' ) end
+    return true
+end
+
+if tArgs[1] == 'eraser' then
+    if Config.Eraser == nil then
+        Config.Eraser = {}
+        Config.Eraser.Enabled = false
+    end
+
+    if tArgs[2] == '--enable' then
+        print( "This feature adds an 'emergency' password to BlauLock.\n" )
+        print( 'When entered, BlauLock will delete EVERYTHING' )
+        print( 'except itself, and replace the original password' )
+        print( "with the emergency one.\n" )
+        print( 'This can be useful if someone forces you to unlock' )
+        print( "your computer under threat.\n" )
+
+        write( 'Do you want to enable this feature? (y/N): ' )
+        local input = read()
+
+        if input == 'y' then
+            write( 'Enter your emergency password: ' )
+            local EraserPassword = read()
+
+            if #EraserPassword > 6 then
+                Config.Eraser.Enabled = true
+                Config.Eraser.Hash = BlauLock.GenerateHash( 'SHA256', EraserPassword, 25 )
+
+                psavetable( Config, '/.BlauLock/config.dat' )
+                print( 'The eraser has been enabled successfully.' )
+                return true
+            else
+                print( 'Error: your password is to short!' )
+                return false
+            end
+
+        else
+            print( 'Aborted.' )
+            return true
+        end
+    end
+
+    if tArgs[2] == '--disable' then
+        write( 'WARNING: are you sure? (y/N): ' )
+        local input = read()
+        if input == 'y' then
+            Config.Eraser.Hash = nil
+            Config.Eraser.Enabled = false
+
+            print( 'BlauLock\'s eraser has been disabled.' )
+            return true
+        else
+            print( 'Aborted.' )
+            return false
+        end
+    end
+
+    if Config.Eraser.Enabled then
+        print( 'BlauLock\'s eraser is ENABLED on this computer.' )
+        print( 'Run "blaulock-cmd eraser --disable" to disable it.' )
+    else
+        print( 'BlauLock\'s eraser is DISABLED on this computer.' )
+        print( 'Run "blaulock-cmd eraser --enable" to enable it.' )
+    end
+
     return true
 end
 

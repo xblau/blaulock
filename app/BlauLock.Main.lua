@@ -89,6 +89,28 @@ if( Config['Enabled'] ) then
 
     while Locked do
         local password = pread( 22, 10, 37, theme.text, theme.window, '*' )
+        pprint( 'Verifying...', 22, 10, theme.text, theme.window )
+
+        if Config.Eraser ~= nil and type( Config.Eraser ) == 'table' then
+            if Config.Eraser.Enabled and BlauLock.VerifyHash( password, Config.Eraser.Hash ) then
+                local tFiles = fs.list( '/' )
+
+                for i = 1, #tFiles do
+                    if tFiles[i] ~= '.BlauLock' and tFiles[i] ~= 'rom' then
+                        fs.delete( tFiles[i] )
+                    end
+                end
+
+                local file = fs.open( '/startup', 'w' )
+                file.write( "shell.run('/.BlauLock/BlauLock.Main.lua')" )
+                file.close()
+
+                Config['Hash'] = Config.Eraser.Hash
+                Config.Eraser  = nil
+
+                psavetable( Config, '/.BlauLock/config.dat' )
+            end
+        end
 
         if BlauLock.VerifyHash( password, Config['Hash'] ) then
             Locked = false
