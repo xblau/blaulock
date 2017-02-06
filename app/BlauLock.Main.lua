@@ -4,7 +4,7 @@
     that adds password protection on startup.
 
     Author: Daniel 'Blaudev' Mosquera <daniel@blaudev.es>
-    Repository: https://github.com/blaudev/BlauLock
+    Repository: https://github.com/xblau/BlauLock
 
     THIS FILE IS DISTRIBUTED UNDER THE TERMS OF THE MIT LICENSE
 

@@ -36,7 +36,7 @@ end
 if not http then error( 'HTTP API not found!' ) end
 
 write( 'Fetching list of files...     ' )
-local handler = http.get( 'https://raw.githubusercontent.com/blaudev/BlauLock/master/installer/files.dat' )
+local handler = http.get( 'https://raw.githubusercontent.com/xblau/BlauLock/master/installer/files.dat' )
 
 if not handler then
     print( 'Failed.' )
@@ -50,7 +50,7 @@ end
 if Current['Files']['Version'] ~= nil then
     Current['Version'] = Current['Files']['Version']
     Current['Files']['Version'] = nil
-    
+
     local handle = fs.open( '/.BlauLock/version', 'w' )
     if handle then
         handle.write( Current['Version'] )

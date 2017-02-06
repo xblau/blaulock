@@ -1,6 +1,6 @@
 name = blaulock
     type = raw
-        url = https://raw.githubusercontent.com/blaudev/BlauLock/master/installer/BlauLock.Pastebin.lua
+        url = https://raw.githubusercontent.com/xblau/BlauLock/master/installer/BlauLock.Pastebin.lua
         filename = blaulock-setup
     setup = blaulock-setup install
     cleanup = blaulock-setup remove
