@@ -27,7 +27,7 @@ local function download( link, path )
 end
 
 if not tArgs[1] then
-    print( 'Running without args, assuming install...' )
+    print( "\nRunning without args, assuming install...\n" )
     tArgs[1] = 'install'
 end
 
@@ -55,7 +55,12 @@ if tArgs[1] == 'install' then
 
     print( 'Success.' )
 
-    shell.run( sInstallerPath )
+    if tArgs[2] ~= nil then
+        shell.run( sInstallerPath .. ' ' .. tArgs[2] )
+    else
+        shell.run( sInstallerPath )
+    end
+
     fs.delete( sInstallerPath )
 end
 
