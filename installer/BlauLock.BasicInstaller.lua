@@ -10,7 +10,13 @@
 
 ]]
 
-local Current = {}
+local tArgs, Current = {...}, {}
+local Version = 'stable'
+
+if tArgs[1] ~= nil then
+    print( "\nINFO: version set to '" .. tArgs[1] .. "'\n")
+    Version = tArgs[1]
+end
 
 local function download( link, path )
     local handler = http.get( link )
@@ -47,22 +53,32 @@ else
     Current['Files'] = textutils.unserialize( sFiles )
 end
 
-if Current['Files']['Version'] ~= nil then
-    Current['Version'] = Current['Files']['Version']
-    Current['Files']['Version'] = nil
+write( 'Validating target version...  ' )
+
+if Version == 'stable' then
+    Version = Current['Files']['stable']
+end
+
+if not Current['Files'][Version] then
+    print( 'Failed.' )
+    error( 'No files found for version "' .. Version .. '"!' )
+else
+    print( 'Success.')
 
     local handle = fs.open( '/.BlauLock/version', 'w' )
     if handle then
-        handle.write( Current['Version'] )
+        handle.write( Version )
         handle.close()
     end
+
+    Current['DownloadList'] = Current['Files'][Version]
 end
 
 local bOK = true
-write( 'Downloading files...          ' )
+write( 'Downloading files (' .. Version .. ')... ' )
 
-for i = 1, #Current['Files'] do
-    local try = download( Current['Files'][i]['URL'], Current['Files'][i]['Path'])
+for i = 1, #Current['DownloadList'] do
+    local try = download( Current['DownloadList'][i]['URL'], Current['DownloadList'][i]['Path'])
     if not try then
         bOK = false
     end
