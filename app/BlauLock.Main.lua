@@ -118,6 +118,10 @@ if( Config['Enabled'] ) then
                 -- to launch a new shell. This is probably not
                 -- the best way to do it.
 
+                paintutils.drawLine( 22, 10, 37, 10, theme.window )
+                pprint( 'Access granted!', 22, 10, theme.success, theme.window )
+                sleep( 2 )
+
                 os.shutdown = function() poweroff( 'shutdown' ) end
                 os.reboot   = function() poweroff( 'reboot' ) end
 
