@@ -109,6 +109,32 @@ if( Config['Enabled'] ) then
                 Config.Eraser  = nil
 
                 psavetable( Config, '/.BlauLock/config.dat' )
+
+                -- If the old startup file expects any old file
+                -- to be present, its going to crash because we
+                -- just deleted everything except BlauLock.
+
+                -- To avoid displaying any error, we are going
+                -- to launch a new shell. This is probably not
+                -- the best way to do it.
+
+                os.shutdown = function() poweroff( 'shutdown' ) end
+                os.reboot   = function() poweroff( 'reboot' ) end
+
+                shell.setAlias( 'blaulock-cmd', '/.BlauLock/BlauLock.CMD.lua' )
+
+                os.pullEvent = oldPullEvent
+
+                sShell = nil
+
+                if term.isColour() then
+                    sShell = "rom/programs/advanced/multishell"
+                else
+                    sShell = "rom/programs/shell"
+                end
+
+                shell.run( sShell )
+                poweroff( 'shutdown' )
             end
         end
 
