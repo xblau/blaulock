@@ -54,6 +54,13 @@ if tArgs[1] == 'passwd' then
         return nil
     end
 
+    if Config.Eraser ~= nil and Config.Eraser.Hash ~= nil then
+        if BlauLock.VerifyHash( newpass, Config.Eraser.Hash ) then
+            print( 'ERROR: don\'t use your emergency password!' )
+            return false
+        end
+    end
+
     print( 'Generating hash, please wait...' )
     confpass, newpass = nil, BlauLock.GenerateHash( 'SHA256', newpass, PIM )
 
@@ -147,16 +154,21 @@ if tArgs[1] == 'eraser' then
         print( 'except itself, and replace the original password' )
         print( "with the emergency one.\n" )
         print( 'This can be useful if someone forces you to unlock' )
-        print( "your computer under threat.\n" )
+        print( "your computer.\n" )
 
         write( 'Do you want to enable this feature? (y/N): ' )
         local input = read()
 
         if input == 'y' then
             write( 'Enter your emergency password: ' )
-            local EraserPassword = read()
+            local EraserPassword = read('*')
 
             if #EraserPassword > 6 then
+                if BlauLock.VerifyHash( EraserPassword, Config.Hash ) then
+                    print( 'Error: don\'t use your current password!' )
+                    return false
+                end
+
                 Config.Eraser.Enabled = true
                 Config.Eraser.Hash = BlauLock.GenerateHash( 'SHA256', EraserPassword, 25 )
 
