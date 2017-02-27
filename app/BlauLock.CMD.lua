@@ -170,7 +170,7 @@ if tArgs[1] == 'eraser' then
                 end
 
                 Config.Eraser.Enabled = true
-                Config.Eraser.Hash = BlauLock.GenerateHash( 'SHA256', EraserPassword, 25 )
+                Config.Eraser.Hash = BlauLock.GenerateHash( 'SHA256', EraserPassword, 15 )
 
                 psavetable( Config, '/.BlauLock/config.dat' )
                 print( 'The eraser has been enabled successfully.' )
