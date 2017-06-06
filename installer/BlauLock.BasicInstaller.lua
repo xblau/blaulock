@@ -3,8 +3,8 @@
     This file is part of BlauLock, a ComputerCraft program
     that adds password protection on startup.
 
-    Author: Daniel 'Blaudev' Mosquera <daniel@blaudev.es>
-    Repository: https://github.com/blaudev/BlauLock
+    Author: Daniel 'xBlau' Mosquera <daniel+github@blaudev.es>
+    Repository: https://github.com/xblau/blaulock
 
     THIS FILE IS DISTRIBUTED UNDER THE TERMS OF THE MIT LICENSE
 
@@ -42,7 +42,7 @@ end
 if not http then error( 'HTTP API not found!' ) end
 
 write( 'Fetching list of files...     ' )
-local handler = http.get( 'https://raw.githubusercontent.com/xblau/BlauLock/master/installer/files.dat' )
+local handler = http.get( 'https://raw.githubusercontent.com/xblau/blaulock/master/installer/files.dat' )
 
 if not handler then
     print( 'Failed.' )

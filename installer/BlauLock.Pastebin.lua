@@ -3,8 +3,8 @@
     This file is part of BlauLock, a ComputerCraft program
     that adds password protection on startup.
 
-    Author: Daniel 'Blaudev' Mosquera <daniel@blaudev.es>
-    Repository: https://github.com/xblau/BlauLock
+    Author: Daniel 'xBlau' Mosquera <daniel+github@blaudev.es>
+    Repository: https://github.com/xblau/blaulock
 
     THIS FILE IS DISTRIBUTED UNDER THE TERMS OF THE MIT LICENSE
 
@@ -35,10 +35,10 @@ if tArgs[1] == 'install' then
     if not http then error( 'HTTP API not found!' ) end
 
     if term.isColor() then
-        --sInstallerLink = 'https://raw.githubusercontent.com/xblau/BlauLock/master/installer/BlauLock.AdvancedInstaller.lua'
-        sInstallerLink = 'https://raw.githubusercontent.com/xblau/BlauLock/master/installer/BlauLock.BasicInstaller.lua'
+        --sInstallerLink = 'https://raw.githubusercontent.com/xblau/blaulock/master/installer/BlauLock.AdvancedInstaller.lua'
+        sInstallerLink = 'https://raw.githubusercontent.com/xblau/blaulock/master/installer/BlauLock.BasicInstaller.lua'
     else
-        sInstallerLink = 'https://raw.githubusercontent.com/xblau/BlauLock/master/installer/BlauLock.BasicInstaller.lua'
+        sInstallerLink = 'https://raw.githubusercontent.com/xblau/blaulock/master/installer/BlauLock.BasicInstaller.lua'
     end
 
     if fs.exists( sInstallerPath ) then
